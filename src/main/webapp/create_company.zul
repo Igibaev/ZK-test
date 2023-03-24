@@ -1,0 +1,45 @@
+<window id="modalDialog" title="Добавить компанию" border="normal" width="460px"
+        apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('aday.viewModel.CreateCompanyViewModel')"
+        position="center,center" closable="true"
+        form="@validator(vm.formValidator)"
+        action="show: slideDown;hide: slideUp">
+    <vlayout>
+        <grid id="formGrid" hflex="min" ctrlKeys="^h">
+            <rows>
+                <row>
+                    <cell sclass="row-title">Наименование :</cell>
+                    <cell>
+                        <textbox value="@bind(vm.company.name)"
+                                 constraint="no empty: Заполните это поле"
+                                 width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Адрес :</cell>
+                    <cell>
+                        <listbox model="@load(vm.addressListModel)"
+                                 selectedItem="@bind(vm.company.address)"
+                                 mold="select" width="200px">
+                            <template name="model">
+                                <listitem label="@load(each.joinAddress)" />
+                            </template>
+                        </listbox>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Правовая форма :</cell>
+                    <cell>
+                        <listbox model="@load(vm.legalFormListModel)" selectedItem="@bind(vm.company.legalForm)"  mold="select" width="200px">
+                            <template name="model">
+                                <listitem label="@load(each)" />
+                            </template>
+                        </listbox>
+                    </cell>
+                </row>
+            </rows>
+        </grid>
+        <button onClick="@command('save')" hflex="1" label="Создать"/>
+        <button onClick="@command('reset')" hflex="1" label="Сбросить"/>
+    </vlayout>
+</window>

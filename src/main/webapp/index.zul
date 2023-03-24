@@ -1,0 +1,40 @@
+<window viewModel="@id('vm') @init('aday.viewModel.CompanyListViewModel')"
+        title="Компании" width="95%" border="normal">
+    <hbox align="center" viewModel="@id('sm') @init('aday.viewModel.CreateCompanyViewModel')">
+        <button onClick="@command('showModal')" iconSclass="z-icon-plus-square" autodisable="self"/>
+    </hbox>
+    <listbox model="@load(vm.companyListModel)"
+             sizedByContent="true"
+             emptyMessage="В результате компания не найдена" height="500px" style="margin-top:10px">
+        <listhead>
+            <listheader label="Наименование"/>
+            <listheader label="Правовая форма"/>
+            <listheader label="Адрес"/>
+            <listheader label="Филиалы"/>
+        </listhead>
+        <template name="model" var="com">
+            <listitem>
+                <listcell label="${com.name}"></listcell>
+                <listcell label="${com.legalForm}"></listcell>
+                <listcell label="${com.address.house}"></listcell>
+                <listcell>
+                    <listbox  model="@load(com.branchList)" height="100px">
+                        <template name="model" var="br">
+                            <listitem>
+                                <listcell label="${br.name}" >
+                                    <button style="margin-left:10px" viewModel="@id('am') @init('aday.viewModel.AddBranchViewModel')" onClick="@command('removeBranch', companyId=com.id, branchId=br.id)" iconSclass="z-icon-minus-square"/>
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                    <button viewModel="@id('am') @init('aday.viewModel.AddBranchViewModel')" onClick="@command('showModal', company=com)" iconSclass="z-icon-plus-square"/>
+                </listcell>
+            </listitem>
+        </template>
+    </listbox>
+    <hbox align="center" viewModel="@id('sm') @init('aday.viewModel.CreateAddressViewModel')" style="margin-top:10px">
+        <button onClick="@command('showModal')" label = "Добавить адресс" iconSclass="z-icon" autodisable="self"/>
+    </hbox>
+
+</window>
+

@@ -1,0 +1,31 @@
+<window id="modalDialog" title="Добавить филиал" border="normal" width="460px"
+        apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('aday.viewModel.AddBranchViewModel')"
+        position="center,center" closable="true"
+        action="show: slideDown;hide: slideUp">
+    <vlayout>
+        <grid id="formGrid" hflex="min" ctrlKeys="^h">
+            <rows>
+                <row>
+                    <cell sclass="row-title">Наименование :</cell>
+                    <cell>
+                        <textbox value="@bind(vm.branch.name)"
+                                 constraint="no empty: Заполните это поле"
+                                 width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Адрес :</cell>
+                    <cell>
+                        <listbox model="@load(vm.addressListModel)" selectedItem="@bind(vm.branch.address)"  mold="select" width="200px">
+                            <template name="model">
+                                <listitem label="@load(each.joinAddress)" />
+                            </template>
+                        </listbox>
+                    </cell>
+                </row>
+            </rows>
+        </grid>
+        <button onClick="@command('addBranch')" hflex="1" label="Добавить"/>
+    </vlayout>
+</window>

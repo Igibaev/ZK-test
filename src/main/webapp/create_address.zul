@@ -1,0 +1,54 @@
+<window id="modalDialog" title="Добавить адрес" border="normal" width="460px"
+        apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('aday.viewModel.CreateAddressViewModel')"
+        position="center,center" closable="true"
+        action="show: slideDown;hide: slideUp">
+    <vlayout>
+        <grid id="formGrid" hflex="min" ctrlKeys="^h">
+            <rows>
+                <row>
+                    <cell sclass="row-title">Индекс :</cell>
+                    <cell>
+                        <textbox value="@bind(vm.address.mailIndex)"
+                                 constraint="no empty: Заполните это поле"
+                                 width="50"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Город :</cell>
+                    <cell>
+                        <textbox value="@bind(vm.address.city)"
+                                 constraint="no empty: Заполните это поле"
+                                 width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Улица :</cell>
+                    <cell>
+                        <textbox value="@bind(vm.address.street)"
+                                 constraint="no empty: Заполните это поле"
+                                 width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Дом :</cell>
+                    <cell>
+                        <textbox value="@bind(vm.address.house)"
+                                 constraint="no empty: Заполните это поле"
+                                 width="50"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Кв :</cell>
+                    <cell>
+                        <textbox value="@bind(vm.address.apartment)"
+                                 constraint="no empty: Заполните это поле"
+                                 width="50"/>
+                    </cell>
+                </row>
+            </rows>
+        </grid>
+        <button onClick="@command('save')" hflex="1" label="Создать"/>
+        <button onClick="@command('reset')" hflex="1" label="Сбросить"/>
+    </vlayout>
+</window>
